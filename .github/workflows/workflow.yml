@@ -1,0 +1,25 @@
+name: xxx
+
+on:
+  workflow_call:
+    inputs:
+      some_input:
+        type: string
+        description: 'inputs required to be provided when this wf is called'
+        required: false
+        default: 'some value'
+
+jobs:
+  job1:
+    runs-on: self-hosted
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: echo
+        run: echo 123
+
+        
