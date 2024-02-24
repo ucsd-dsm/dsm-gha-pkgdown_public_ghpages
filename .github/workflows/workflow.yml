@@ -1,4 +1,4 @@
-name: xxx
+name: pkgdown public ghpages
 
 on:
   workflow_call:
