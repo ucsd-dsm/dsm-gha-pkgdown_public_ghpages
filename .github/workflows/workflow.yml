@@ -43,6 +43,6 @@ jobs:
         with:
           clean: false
           branch: gh-pages
-          folder: inputs.folder
+          folder: ${{ inputs.folder }}
 
         
