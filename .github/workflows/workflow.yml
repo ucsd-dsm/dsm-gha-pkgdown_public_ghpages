@@ -44,7 +44,7 @@ jobs:
           else
             pkgs="any::pkgdown, local::., ${{ inputs.extra_pkgs }}"
           fi
-          echo "EXTRA_PKGS=$pkgs" >> "$GIT_ENV"
+          echo "EXTRA_PKGS=$pkgs" >> $GITHUB_ENV
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
