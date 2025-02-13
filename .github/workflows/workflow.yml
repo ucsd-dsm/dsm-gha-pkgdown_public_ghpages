@@ -8,6 +8,11 @@ on:
         description: 'where your pkgdown site is stored'
         required: false
         default: 'docs'
+      extra_pkgs:
+        type: string
+        description: 'extra packages to install, separated by commas'
+        required: false
+        default: ''
 
 jobs:
   pkgdown:
@@ -28,9 +33,20 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: parse extra packages string
+        shell: bash
+        run: |
+        
+          if [[ "${{ inputs.extra_pkgs }}" == "" ]]; then
+            pkgs="any::pkgdown, local::."
+          else
+            pkgs="any::pkgdown, local::.,${{ inputs.extra_pkgs }}"
+          fi
+          echo "EXTRA_PKGS=$pkgs" >> "$GIT_ENV"
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: ${{ env.EXTRA_PKGS }}
           needs: website
 
       - name: Build site
