@@ -10,7 +10,9 @@ on:
         default: 'docs'
       extra_pkgs:
         type: string
-        description: 'extra packages to install, separated by commas'
+        description: |
+          extra packages to install, separated by commas. One may use `any::` prefix to
+          inadicate any source is okay. Read https://github.com/r-lib/actions/tree/v2/setup-r-dependencies
         required: false
         default: ''
 
@@ -40,7 +42,7 @@ jobs:
           if [[ "${{ inputs.extra_pkgs }}" == "" ]]; then
             pkgs="any::pkgdown, local::."
           else
-            pkgs="any::pkgdown, local::.,${{ inputs.extra_pkgs }}"
+            pkgs="any::pkgdown, local::., ${{ inputs.extra_pkgs }}"
           fi
           echo "EXTRA_PKGS=$pkgs" >> "$GIT_ENV"
 
